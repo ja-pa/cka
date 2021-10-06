@@ -1,0 +1,21 @@
+#cloud-config
+groups:
+  - ubuntu: [root,sys]
+  - hashicorp
+
+# Add users to the system. Users are added after groups are added.
+users:
+  - default
+  - name: terraform
+    gecos: terraform
+    shell: /bin/bash
+    primary_group: hashicorp
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    lock_passwd: false
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCswR4Glm+eVKQ5U95XKF3zTnjEQMYKq6bdSMtS5L4wCJLI9BkHAYcdKC86O655qL/sNODsxcUhTBuMPqBYC4x//NjjjHDN/oOzxZFmrL5sEOH90Ur1EUv48xwARsXPCCRn+De97fccb9diGmZDsNY8hO3Se0HAy6Sx7c1UyZ6BweGSB2Agzg6Xob+vpLWWO1M6awrhBamn0iQ5i0H5tpfLxi8UheYZYnwFxaqFp9x5YU7rzT8i4eSU7JEGWbbWxWZKMsFlMqzjVisb5A7lxVs6KbpHE4x1xIfAHHsWpF76vhp76vH1NhAbNrayTk3LjU1rccdx1c+e2/kFFm8sb8etuQncPyoLCDOCjZAPsIst9QXdRc2nbkG5lbpfVP88VeQEoLZHNnh09wggcOphGT6q9kEFlOkA5zmh86TvGt3idftfkmCjziDzu0dRjO2sL5KyaxE3PM23a3c9+VDaDJc9O2e71+g7KivkpCTQfeCkfvAXbJKFeGwlB4KhjB2jdX8= japa@fedora
+
+runcmd:
+  - sudo apt-get update
+  - sudo apt install vim git -q -y
