@@ -11,10 +11,19 @@ terraform {
 
 provider "digitalocean" {}
 
-resource "digitalocean_droplet" "terramino" {
+resource "digitalocean_droplet" "worker" {
   count     = 1 
   image     = "ubuntu-20-04-x64"
-  name      = "terramino"
+  name      = "worker"
+  region    = "fra1"
+  size      = "s-1vcpu-1gb"
+  user_data = file("setup_ubuntu.yaml")
+}
+
+resource "digitalocean_droplet" "control" {
+  count     = 1 
+  image     = "ubuntu-20-04-x64"
+  name      = "control"
   region    = "fra1"
   size      = "s-1vcpu-1gb"
   user_data = file("setup_ubuntu.yaml")
